@@ -175,3 +175,24 @@ test-health:
 	@echo "Langflow:"; curl -s http://localhost:7860/health > /dev/null && echo "  ✅ OK" || echo "  ❌ Failed"
 	@echo "Grafana:"; curl -s http://localhost:3001/api/health > /dev/null && echo "  ✅ OK" || echo "  ❌ Failed"
 	@echo "Prometheus:"; curl -s http://localhost:9090/-/healthy > /dev/null && echo "  ✅ OK" || echo "  ❌ Failed"
+
+# Diagnostics
+diagnose:
+	@echo "🔍 Running server diagnostics..."
+	./diagnose.sh
+
+diagnose-nginx:
+	@echo "📋 Nginx Configuration:"
+	docker exec iteasy-nginx cat /etc/nginx/conf.d/default.conf
+
+diagnose-logs:
+	@echo "📊 Service Logs:"
+	@echo ""
+	@echo "=== Nginx ==="
+	docker logs --tail 20 iteasy-nginx 2>&1 || echo "Nginx not running"
+	@echo ""
+	@echo "=== Langflow ==="
+	docker logs --tail 20 iteasy-langflow 2>&1 || echo "Langflow not running"
+	@echo ""
+	@echo "=== Frontend ==="
+	docker logs --tail 20 iteasy-frontend 2>&1 || echo "Frontend not running"

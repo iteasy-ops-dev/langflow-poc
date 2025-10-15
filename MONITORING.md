@@ -250,7 +250,7 @@ rate(container_fs_writes_bytes_total{name="extendlangflow-postgres-1"}[5m])
 
 더 복잡한 알림 규칙이 필요한 경우:
 ```yaml
-# docker-compose.yml에 추가
+# docker compose.yml에 추가
 alertmanager:
   image: prom/alertmanager
   ports:

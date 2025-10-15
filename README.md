@@ -72,7 +72,7 @@ cp .env.example .env
 ### 3. Docker Compose로 실행
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 4. 서비스 접속
@@ -108,7 +108,7 @@ npm run dev
 
 ```
 extendLangFlow/
-├── docker-compose.yml       # Docker Compose 설정
+├── docker compose.yml       # Docker Compose 설정
 ├── frontend/                # Next.js 프론트엔드
 │   ├── app/
 │   │   ├── page.tsx        # 대시보드
@@ -157,7 +157,7 @@ Text Input → Log Analysis Prompt → LLM → Structured Output
 POC 수준이므로 단일 인스턴스 배포를 권장합니다.
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ## 🎨 커스터마이징
@@ -199,7 +199,7 @@ docker-compose up -d --build
 
 ### Langflow API 연결 실패
 ```bash
-docker-compose logs langflow
+docker compose logs langflow
 ```
 Langflow 컨테이너가 정상 작동 중인지 확인
 
@@ -226,3 +226,37 @@ POC 프로젝트 - 내부 사용 전용
 - 개발자: [Your Name]
 - 컨퍼런스: [Conference Name]
 - 날짜: 2025-10-14
+
+## 🎮 Makefile 명령어
+
+프로젝트에 Makefile이 포함되어 있어 복잡한 명령어를 간단하게 실행할 수 있습니다.
+
+### 빠른 시작
+```bash
+# 도움말 보기
+make help
+
+# 개발 환경 시작
+make dev
+
+# 프로덕션 환경 시작
+make prod
+
+# 배포 (deploy.sh 실행)
+make deploy
+```
+
+### 주요 명령어
+```bash
+make dev              # 개발 환경 시작
+make prod             # 프로덕션 환경 시작
+make logs             # 로그 확인
+make ps               # 컨테이너 목록
+make health           # 헬스 체크
+make monitoring       # Grafana 대시보드 열기
+make metrics          # 리소스 사용량 확인
+make clean            # 모든 컨테이너/볼륨 삭제
+```
+
+자세한 사용법은 [MAKEFILE.md](./MAKEFILE.md)를 참고하세요.
+

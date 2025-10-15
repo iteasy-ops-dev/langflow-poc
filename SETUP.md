@@ -3,7 +3,7 @@
 ## 1단계: 시스템 시작
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## 2단계: Langflow 접속 및 플로우 생성
@@ -94,7 +94,7 @@ const response = await callLangflowAPI('YOUR_LOG_ANALYSIS_FLOW_ID', logText)
 ## 4단계: 프론트엔드 재시작
 
 ```bash
-docker-compose restart frontend
+docker compose restart frontend
 ```
 
 ## 5단계: 접속 테스트
@@ -114,8 +114,8 @@ OPENAI_API_KEY=your_api_key_here
 
 ### Langflow가 시작되지 않음
 ```bash
-docker-compose logs langflow
-docker-compose restart langflow
+docker compose logs langflow
+docker compose restart langflow
 ```
 
 ### 프론트엔드가 Langflow에 연결 안 됨
@@ -123,7 +123,7 @@ docker-compose restart langflow
 - Langflow가 완전히 시작될 때까지 1-2분 대기
 
 ### 포트 충돌
-docker-compose.yml에서 포트 변경:
+docker compose.yml에서 포트 변경:
 ```yaml
 ports:
   - "3001:3000"  # 3000 대신 3001 사용

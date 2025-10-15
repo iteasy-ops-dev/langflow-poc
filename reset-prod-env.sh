@@ -46,11 +46,11 @@ fi
 
 echo ""
 echo "🛑 기존 컨테이너 중지 및 삭제..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod down -v
+docker compose -f docker-compose.prod.yml --env-file .env.prod down -v
 
 echo ""
 echo "🚀 새 설정으로 컨테이너 시작..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
 
 echo ""
 echo "⏳ 서비스 시작 대기 중..."
@@ -58,7 +58,7 @@ sleep 15
 
 echo ""
 echo "🔍 서비스 상태 확인..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
+docker compose -f docker-compose.prod.yml --env-file .env.prod ps
 
 echo ""
 echo "╔══════════════════════════════════════════════════════════════╗"

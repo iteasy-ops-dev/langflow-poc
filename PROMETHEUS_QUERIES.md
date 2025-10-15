@@ -197,7 +197,7 @@ rate(container_network_transmit_bytes_total{id=~"/docker/3812.*"}[5m])
 ## ⚠️ 주의사항
 
 1. **컨테이너 재시작 시 ID 변경**
-   - `docker-compose restart` 후 ID가 바뀌면 쿼리도 업데이트 필요
+   - `docker compose restart` 후 ID가 바뀌면 쿼리도 업데이트 필요
    
 2. **정규식 사용**
    - 앞 4자리만 사용하여 ID 변경에 어느 정도 대응

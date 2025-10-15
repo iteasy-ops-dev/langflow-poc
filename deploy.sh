@@ -27,11 +27,11 @@ echo "✅ Environment variables loaded"
 echo ""
 
 echo "🐳 Pulling latest Docker images..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod pull
+docker compose -f docker-compose.prod.yml --env-file .env.prod pull
 
 echo ""
 echo "🔨 Building frontend image..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod build frontend
+docker compose -f docker-compose.prod.yml --env-file .env.prod build frontend
 
 echo ""
 echo "🔒 Creating Nginx password file..."
@@ -44,7 +44,7 @@ fi
 
 echo ""
 echo "🚀 Starting services..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+docker compose -f docker-compose.prod.yml --env-file .env.prod up -d
 
 echo ""
 echo "⏳ Waiting for services to be ready..."
@@ -52,7 +52,7 @@ sleep 10
 
 echo ""
 echo "🔍 Checking service status..."
-docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
+docker compose -f docker-compose.prod.yml --env-file .env.prod ps
 
 echo ""
 echo "========================================="
@@ -77,7 +77,7 @@ echo "  2. Access Grafana and verify dashboards"
 echo "  3. Configure Langflow flows"
 echo "  4. Update DNS/firewall rules if needed"
 echo ""
-echo "📚 Logs: docker-compose -f docker-compose.prod.yml logs -f [service-name]"
-echo "🔄 Restart: docker-compose -f docker-compose.prod.yml restart [service-name]"
-echo "🛑 Stop: docker-compose -f docker-compose.prod.yml down"
+echo "📚 Logs: docker compose -f docker-compose.prod.yml logs -f [service-name]"
+echo "🔄 Restart: docker compose -f docker-compose.prod.yml restart [service-name]"
+echo "🛑 Stop: docker compose -f docker-compose.prod.yml down"
 echo ""

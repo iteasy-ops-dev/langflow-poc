@@ -145,7 +145,7 @@ None reported
 
 ```
 extendLangFlow/
-├── docker-compose.yml          # Main orchestration
+├── docker compose.yml          # Main orchestration
 ├── .env                        # Credentials
 ├── frontend/                   # Next.js application
 │   ├── app/
@@ -170,7 +170,7 @@ extendLangFlow/
 
 ### 1. Start All Services
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 2. Access Applications
@@ -229,12 +229,12 @@ docker ps --format "table {{.ID}}\t{{.Names}}"
 
 ### View Logs
 ```bash
-docker-compose logs -f [service-name]
+docker compose logs -f [service-name]
 ```
 
 ### Restart Service
 ```bash
-docker-compose restart [service-name]
+docker compose restart [service-name]
 ```
 
 ### Check Metrics in Prometheus

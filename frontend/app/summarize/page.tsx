@@ -62,7 +62,7 @@ export default function SummarizePage() {
           setDocumentText(text)
           setUploadedFileName(file.name)
         }
-        reader.readAsText(file)
+        reader.readAsText(file, 'UTF-8')
       }
     } catch (error) {
       alert('파일을 읽는 중 오류가 발생했습니다.')

@@ -58,24 +58,38 @@ export default function LogAnalysisPage() {
 
     try {
       if (file.name.endsWith('.json')) {
-        const text = await file.text()
-        const json = JSON.parse(text)
-        setLogText(JSON.stringify(json, null, 2))
-        setUploadedFileName(file.name)
-      } else if (file.name.endsWith('.csv')) {
-        const text = await file.text()
-        Papa.parse(text, {
-          complete: (results) => {
-            const formatted = results.data
-              .map((row: any) => Array.isArray(row) ? row.join(', ') : JSON.stringify(row))
-              .join('\n')
-            setLogText(formatted)
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          const text = event.target?.result as string
+          try {
+            const json = JSON.parse(text)
+            setLogText(JSON.stringify(json, null, 2))
             setUploadedFileName(file.name)
-          },
-          error: (error) => {
-            alert('CSV 파일 파싱 오류: ' + error.message)
+          } catch (error) {
+            alert('JSON 파일 파싱 오류')
           }
-        })
+        }
+        reader.readAsText(file, 'UTF-8')
+      } else if (file.name.endsWith('.csv')) {
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          const text = event.target?.result as string
+          Papa.parse(text, {
+            encoding: 'UTF-8',
+            skipEmptyLines: true,
+            complete: (results) => {
+              const formatted = results.data
+                .map((row: any) => Array.isArray(row) ? row.join(', ') : JSON.stringify(row))
+                .join('\n')
+              setLogText(formatted)
+              setUploadedFileName(file.name)
+            },
+            error: (error) => {
+              alert('CSV 파일 파싱 오류: ' + error.message)
+            }
+          })
+        }
+        reader.readAsText(file, 'UTF-8')
       } else {
         const reader = new FileReader()
         reader.onload = (event) => {
@@ -83,7 +97,7 @@ export default function LogAnalysisPage() {
           setLogText(text)
           setUploadedFileName(file.name)
         }
-        reader.readAsText(file)
+        reader.readAsText(file, 'UTF-8')
       }
     } catch (error) {
       alert('파일을 읽는 중 오류가 발생했습니다.')

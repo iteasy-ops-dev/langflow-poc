@@ -84,7 +84,7 @@ export default function LogAnalysisPage() {
               setLogText(formatted)
               setUploadedFileName(file.name)
             },
-            error: (error) => {
+            error: (error: Error) => {
               alert('CSV 파일 파싱 오류: ' + error.message)
             }
           })

@@ -27,11 +27,11 @@ echo "✅ Environment variables loaded"
 echo ""
 
 echo "🐳 Pulling latest Docker images..."
-docker-compose -f docker-compose.prod.yml pull
+docker-compose -f docker-compose.prod.yml --env-file .env.prod pull
 
 echo ""
 echo "🔨 Building frontend image..."
-docker-compose -f docker-compose.prod.yml build frontend
+docker-compose -f docker-compose.prod.yml --env-file .env.prod build frontend
 
 echo ""
 echo "🔒 Creating Nginx password file..."
@@ -44,7 +44,7 @@ fi
 
 echo ""
 echo "🚀 Starting services..."
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
 
 echo ""
 echo "⏳ Waiting for services to be ready..."
@@ -52,7 +52,7 @@ sleep 10
 
 echo ""
 echo "🔍 Checking service status..."
-docker-compose -f docker-compose.prod.yml ps
+docker-compose -f docker-compose.prod.yml --env-file .env.prod ps
 
 echo ""
 echo "========================================="

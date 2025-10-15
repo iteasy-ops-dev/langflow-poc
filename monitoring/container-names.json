@@ -1,0 +1,9 @@
+{
+  "langflow": "/docker/3812.*",
+  "postgres": "/docker/665d.*",
+  "frontend": "/docker/afa4.*",
+  "pgadmin": "/docker/b2a7.*",
+  "grafana": "/docker/45f7.*",
+  "prometheus": "/docker/59a0.*",
+  "cadvisor": "/docker/a042.*"
+}

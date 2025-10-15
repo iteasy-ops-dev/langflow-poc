@@ -1,0 +1,46 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    metrics_path: '/metrics'
+    metric_relabel_configs:
+      - source_labels: [id]
+        regex: '/docker/([a-z0-9]{64})'
+        target_label: container_id
+        replacement: '$1'
+      - source_labels: [container_id]
+        regex: '3812.*'
+        target_label: container_name
+        replacement: 'langflow'
+      - source_labels: [container_id]
+        regex: '665d.*'
+        target_label: container_name
+        replacement: 'postgres'
+      - source_labels: [container_id]
+        regex: 'afa4.*'
+        target_label: container_name
+        replacement: 'frontend'
+      - source_labels: [container_id]
+        regex: 'b2a7.*'
+        target_label: container_name
+        replacement: 'pgadmin'
+      - source_labels: [container_id]
+        regex: '45f7.*'
+        target_label: container_name
+        replacement: 'grafana'
+      - source_labels: [container_id]
+        regex: '59a0.*'
+        target_label: container_name
+        replacement: 'prometheus'
+      - source_labels: [container_id]
+        regex: '7681.*'
+        target_label: container_name
+        replacement: 'cadvisor'

@@ -1,0 +1,249 @@
+{
+  "dashboard": {
+    "title": "ITEASY AI 플랫폼 모니터링",
+    "tags": ["docker", "containers", "iteasy", "한글"],
+    "timezone": "Asia/Seoul",
+    "refresh": "5s",
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "📊 전체 컨테이너 메모리 사용량",
+        "type": "timeseries",
+        "gridPos": {"x": 0, "y": 0, "w": 24, "h": 8},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"langflow\"} / 1024 / 1024",
+            "legendFormat": "🚀 Langflow",
+            "refId": "A"
+          },
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"frontend\"} / 1024 / 1024",
+            "legendFormat": "🎨 Frontend",
+            "refId": "B"
+          },
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"postgres\"} / 1024 / 1024",
+            "legendFormat": "🗄️ PostgreSQL",
+            "refId": "C"
+          },
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"grafana\"} / 1024 / 1024",
+            "legendFormat": "📈 Grafana",
+            "refId": "D"
+          },
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"prometheus\"} / 1024 / 1024",
+            "legendFormat": "📊 Prometheus",
+            "refId": "E"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decmbytes",
+            "color": {"mode": "palette-classic"}
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "🚀 Langflow - CPU 사용률",
+        "type": "gauge",
+        "gridPos": {"x": 0, "y": 8, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{container_name=\"langflow\",cpu=\"total\"}[1m]) * 100",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 50, "color": "yellow"},
+                {"value": 80, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "🚀 Langflow - 메모리",
+        "type": "stat",
+        "gridPos": {"x": 6, "y": 8, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"langflow\"} / 1024 / 1024",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decmbytes",
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 1000, "color": "yellow"},
+                {"value": 2000, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "🗄️ PostgreSQL - CPU 사용률",
+        "type": "gauge",
+        "gridPos": {"x": 12, "y": 8, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{container_name=\"postgres\",cpu=\"total\"}[1m]) * 100",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "min": 0,
+            "max": 100,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 50, "color": "yellow"},
+                {"value": 80, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "🗄️ PostgreSQL - 메모리",
+        "type": "stat",
+        "gridPos": {"x": 18, "y": 8, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{container_name=\"postgres\"} / 1024 / 1024",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decmbytes",
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 500, "color": "yellow"},
+                {"value": 1000, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 6,
+        "title": "🌐 네트워크 트래픽 - Langflow",
+        "type": "timeseries",
+        "gridPos": {"x": 0, "y": 14, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_network_receive_bytes_total{container_name=\"langflow\"}[1m])",
+            "legendFormat": "⬇️ 수신 (RX)",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(container_network_transmit_bytes_total{container_name=\"langflow\"}[1m])",
+            "legendFormat": "⬆️ 송신 (TX)",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "Bps"
+          }
+        }
+      },
+      {
+        "id": 7,
+        "title": "💾 디스크 I/O - PostgreSQL",
+        "type": "timeseries",
+        "gridPos": {"x": 12, "y": 14, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_fs_reads_bytes_total{container_name=\"postgres\"}[1m])",
+            "legendFormat": "📖 읽기",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(container_fs_writes_bytes_total{container_name=\"postgres\"}[1m])",
+            "legendFormat": "✍️ 쓰기",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "Bps"
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "🎨 Frontend - 리소스 사용량",
+        "type": "timeseries",
+        "gridPos": {"x": 0, "y": 22, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{container_name=\"frontend\",cpu=\"total\"}[1m]) * 100",
+            "legendFormat": "CPU (%)",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "title": "📦 전체 시스템 메모리 사용량",
+        "type": "piechart",
+        "gridPos": {"x": 12, "y": 22, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{container_name!=\"\"} / 1024 / 1024",
+            "legendFormat": "{{container_name}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "decmbytes"
+          }
+        },
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "values": ["value", "percent"]
+          }
+        }
+      }
+    ]
+  },
+  "overwrite": true
+}

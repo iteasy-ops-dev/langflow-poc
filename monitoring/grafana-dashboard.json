@@ -1,0 +1,136 @@
+{
+  "dashboard": {
+    "title": "ITEASY AI Platform - Container Monitoring",
+    "tags": ["docker", "containers", "iteasy"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Langflow CPU Usage (%)",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{id=~\"/docker/3812.*\"}[1m]) * 100",
+            "legendFormat": "Langflow CPU",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "label": "CPU %"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Langflow Memory Usage (MB)",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{id=~\"/docker/3812.*\"} / 1024 / 1024",
+            "legendFormat": "Langflow Memory",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "decmbytes", "label": "Memory (MB)"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 3,
+        "title": "PostgreSQL CPU Usage (%)",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{id=~\"/docker/665dd.*\"}[1m]) * 100",
+            "legendFormat": "PostgreSQL CPU",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "label": "CPU %"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 4,
+        "title": "PostgreSQL Memory Usage (MB)",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 8, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{id=~\"/docker/665dd.*\"} / 1024 / 1024",
+            "legendFormat": "PostgreSQL Memory",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "decmbytes", "label": "Memory (MB)"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Frontend (Next.js) CPU Usage (%)",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 16, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{id=~\"/docker/afa46.*\"}[1m]) * 100",
+            "legendFormat": "Frontend CPU",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "label": "CPU %"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "All Containers Memory Usage",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 16, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{id=~\"/docker/[^/]+$\"} / 1024 / 1024",
+            "legendFormat": "{{id}}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          {"format": "decmbytes", "label": "Memory (MB)"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Container Network I/O (bytes/sec)",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 24, "w": 24, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(container_network_receive_bytes_total{id=~\"/docker/3812.*\"}[1m])",
+            "legendFormat": "Langflow RX",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(container_network_transmit_bytes_total{id=~\"/docker/3812.*\"}[1m])",
+            "legendFormat": "Langflow TX",
+            "refId": "B"
+          }
+        ],
+        "yaxes": [
+          {"format": "Bps", "label": "Network I/O"},
+          {"format": "short"}
+        ]
+      }
+    ],
+    "refresh": "5s",
+    "time": {"from": "now-15m", "to": "now"}
+  },
+  "overwrite": true
+}
